@@ -11,6 +11,7 @@
     form,
     input {
       margin: 10px;
+      /* color: blue; */
     }
   </style>
 </head>
@@ -25,36 +26,34 @@
 
     <form id="movie-form">
       <label for="movie-input">Add a Movie!</label>
-      <input type="text" id="movie-input"><br>
-
+      <input type="text" id="movie-input">
       <!-- Button triggers new movie to be added -->
-      <input id="add-movie" type="submit" value="Add a Movie, Yo!">
+      <input id="add-movie" type="submit" value="Add a Movie">
     </form>
 
+    <!-- jQuery CDN lik -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- js inline style code -->
     <script type="text/javascript">
-      // Initial array of movies
-      var movies = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
 
-      // Function for dumping the JSON content for each button into the div
+      // Initial array of movies
+      var movies = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King", "Sweet November"];
+
+      // FUNCTION FOR GETTING DATA
       function displayMovieInfo() {
 
-        // YOUR CODE GOES HERE!!! HINT: You will need to create a new div to hold the JSON.
-
         let movie = $(this).attr('data-name');
+        // console.log(movie);
         var queryURL = `https://www.omdbapi.com/?t=${movie}&apikey=trilogy`;
 
-        // console.log(movie);
         $.ajax({
           url: queryURL,
           type: 'GET',
         }).then(data => console.log(data));
-
       }
 
-      // Function for displaying movie data
+      // FUNCTION FOR RENDERING BUTTONS
       function renderButtons() {
-
 
         // Deleting the buttons prior to adding new movies
         // (this is necessary otherwise you will have repeat buttons)
@@ -64,8 +63,9 @@
         for (var i = 0; i < movies.length; i++) {
 
           // Then dynamicaly generating buttons for each movie in the array
-          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-          var a = $("<button>");
+          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>);
+    
+          var a = $("<button>");    // CREATRING BUTTON
           // Adding a class of movie to our button
           a.addClass("movie");
           // Adding a data-attribute
@@ -81,7 +81,7 @@
       $("#add-movie").on("click", function (event) {
         event.preventDefault();
 
-        // This line grabs the input from the textbox
+        // Grabbing the data from input
         var movie = $("#movie-input").val().trim();
 
         // The movie from the textbox is then added to our array
